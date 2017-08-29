@@ -1,0 +1,26 @@
+#!/bin/sh
+
+case "$1" in
+start)
+    echo "TE0726-02 Init script"
+	mount -t vfat /dev/mmcblk0p1 /media
+	if [ -f /media/init.sh ]
+	then
+		echo "+ Running init.sh from SD"
+		tr -d '\r' < /media/init.sh > /tmp/init.sh
+        #umount /media
+		source /tmp/init.sh
+		rm /tmp/init.sh
+	fi
+	;;
+
+stop)
+	;;
+
+force-reload|restart)
+	;;
+
+*)
+	;;
+esac
+
